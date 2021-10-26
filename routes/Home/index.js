@@ -1,81 +1,74 @@
-const express = require("express");
-const router = express.Router();
-const passport = require("passport");
+const express = require('express')
+const router = express.Router()
+const passport = require('passport')
 
 
 
 
 
 // include models 
-const Audit = require("../../models/Audit");
-const Position = require("../../models/Position");
-const Officer = require("../../models/Officer");
-const Comment = require("../../models/Comment");
+const Audit = require('../../models/Audit')
+const Position = require('../../models/Position')
+const Officer = require('../../models/Officer')
 
 
-router.get("/", (req, res) => {
-    res.render("index");
-  });
+router.get('/', (req, res) => {
+    res.render('index')
+  })
 
 
 
-  router.get("/findOfficer", (req, res) => {
-    let findId = req.query.id;
-    if (findId === "" || isEmpty(findId)) {
-      findId = "0000";
+  router.get('/findOfficer', (req, res) => {
+    let findId = req.query.id
+    if (findId === '' || isEmpty(findId)) {
+      findId = '0000'
     } else if (findId.length < 4 || findId.length > 4) {
-      res.render("index", { message: "Officer Id must be 4 digits" });
+      res.render('index', { message: 'Officer Id must be 4 digits' })
     }
   
-    Officer.findOne({ agency: "LRA", id: findId }).then((off) => {
+    Officer.findOne({ agency: 'LRA', id: findId }).then((off) => {
       if (!off) {
-        res.render("index", {
-          message: "Officer not found \n Please enter a valid Officer id",
-        });
+        res.render('index', {
+          message: 'Officer not found \n Please enter a valid Officer id',
+        })
       }
-      res.render("officerDetails", { officer: off });
-    });
-  });
+      res.render('officerDetails', { officer: off })
+    })
+  })
 
 
-  router.get("/applaud/:id", (req, res) => {
-    Officer.findOne({ agency: "LRA", _id: req.params.id }).then((off) => {
+  router.get('/applaud/:id', (req, res) => {
+    Officer.findOne({ agency: 'LRA', _id: req.params.id }).then((off) => {
       // console.log(off);
       // console.log(req.query.id);
-      if (req.query.id === "") {
-        res.redirect("/");
+      if (req.query.id === '') {
+        res.redirect('/')
       } else {
-        res.render("applaud", { officer: off });
+        res.render('applaud', { officer: off })
       }
-    });
-  });
+    })
+  })
   
-  router.get("/complain/:id", (req, res) => {
-    Officer.findOne({ agency: "LRA", _id: req.params.id }).then((off) => {
+  router.get('/complain/:id', (req, res) => {
+    Officer.findOne({ agency: 'LRA', _id: req.params.id }).then((off) => {
       // console.log(off);
       // console.log(req.query.id);
-      if (req.query.id === "") {
-        res.redirect("/");
+      if (req.query.id === '') {
+        res.redirect('/')
       } else {
-        res.render("complain", { officer: off });
+        res.render('complain', { officer: off })
       }
-    });
-  });
-
-
-
-
-
-
+    })
+  })
 
 
 
 
 // temporary route for adding new officer via mobile app
-router.get("/addOfficer", (req, res) => {
-  Position.find({ agency: "LRA" }).then((pos) => {
-    res.render("addOfficer", { positions: pos });
-  });
-});
+router.get('/addOfficer', (req, res) => {
+  Position.find({ agency: 'LRA' }).then((pos) => {
+    res.render('addOfficer', { positions: pos })
+  })
+})
 
-  module.exports = router;
+  module.exports = router
