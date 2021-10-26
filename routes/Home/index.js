@@ -27,7 +27,7 @@ router.get("/", (req, res) => {
       res.render("index", { message: "Officer Id must be 4 digits" });
     }
   
-    Officer.findOne({ agency: "LIS", id: findId }).then((off) => {
+    Officer.findOne({ agency: "LRA", id: findId }).then((off) => {
       if (!off) {
         res.render("index", {
           message: "Officer not found \n Please enter a valid Officer id",
@@ -39,7 +39,7 @@ router.get("/", (req, res) => {
 
 
   router.get("/applaud/:id", (req, res) => {
-    Officer.findOne({ agency: "LIS", _id: req.params.id }).then((off) => {
+    Officer.findOne({ agency: "LRA", _id: req.params.id }).then((off) => {
       // console.log(off);
       // console.log(req.query.id);
       if (req.query.id === "") {
@@ -51,7 +51,7 @@ router.get("/", (req, res) => {
   });
   
   router.get("/complain/:id", (req, res) => {
-    Officer.findOne({ agency: "LIS", _id: req.params.id }).then((off) => {
+    Officer.findOne({ agency: "LRA", _id: req.params.id }).then((off) => {
       // console.log(off);
       // console.log(req.query.id);
       if (req.query.id === "") {
@@ -73,7 +73,7 @@ router.get("/", (req, res) => {
 
 // temporary route for adding new officer via mobile app
 router.get("/addOfficer", (req, res) => {
-  Position.find({ agency: "LIS" }).then((pos) => {
+  Position.find({ agency: "LRA" }).then((pos) => {
     res.render("addOfficer", { positions: pos });
   });
 });
