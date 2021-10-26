@@ -63,9 +63,9 @@ app.use('/applaud', express.static((__dirname, 'public')))
 app.use('/static', express.static((__dirname, 'public/images/officers')))
 
 
-// routes LRAt
+// routes LRA
 const audit = require('./routes/admin/audit')
-const front = require('./routes/home/index')
+const front = require('./routes/Home/index')
 
 app.use(
   session({
